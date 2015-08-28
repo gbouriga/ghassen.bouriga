@@ -1,0 +1,2 @@
+Main-Class: ejb3.test.clients.BankClient
+Class-Path: ../target/BankService.jar

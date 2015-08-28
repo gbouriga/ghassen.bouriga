@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>root-project</artifactId>
+        <groupId>ghassen.bouriga.projects</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>ejb3-standalone</artifactId>
+
+
+    <properties>
+
+        <javax.version>7.0</javax.version>
+        <lang.version>2.6</lang.version>
+        <antrun.version>1.3</antrun.version>
+        <!-- ant properties-->
+        <environment>env</environment>
+        <target.dir>${basedir}\target</target.dir>
+        <src.dir>${basedir}\src</src.dir>
+        <resources.dir>${basedir}\src\main\resources</resources.dir>
+        <env.file>env.properties</env.file>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${antrun.version}</version>
+                <executions>
+                    <execution>
+                        <id>package-ejb</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <jar jarfile="${target.dir}\BankService.jar">
+                                    <fileset dir="${target.dir}\classes">
+                                        <include name="ejb3/remote/services/**"/>
+                                        <include name="ejb3/persistence/entities/**"/>
+                                    </fileset>
+                                    <metainf dir="${resources.dir}">
+                                        <include name="persistence.xml"/>
+                                    </metainf>
+                                </jar>
+                            </tasks>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>package-client</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <jar jarfile="${target.dir}/BankClient.jar"
+                                     manifest="${resources.dir}/MANIFEST.MF">
+                                    <fileset dir="${resources.dir}">
+                                        <include name="jndi.properties"/>
+                                    </fileset>
+                                    <fileset dir="${target.dir}\classes">
+                                        <include name="ejb3/test/clients/BankClient.class"/>
+                                    </fileset>
+                                </jar>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>package-ear</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <ear destfile="${target.dir}/BankService.ear"
+                                     basedir="${target.dir}"
+                                     includes="BankService.jar"
+                                     manifest="${resources.dir}/MANIFEST.MF"
+                                     appxml="${resources.dir}/application.xml"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javax.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${lang.version}</version>
+        </dependency>
+    </dependencies>
+</project>
