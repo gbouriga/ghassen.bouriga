@@ -6,6 +6,9 @@ package multithread.examples;
 public class ThreadConstant {
     public static final int NUMBER_OF_CYCLES = 10;
 
+    public static final int NUMBER_OF_THREAD_POOLS = 3;
+
+
     //no instance
     private ThreadConstant(){
     }

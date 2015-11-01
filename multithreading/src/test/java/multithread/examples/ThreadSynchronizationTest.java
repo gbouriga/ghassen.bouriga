@@ -14,22 +14,24 @@ public class ThreadSynchronizationTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(ThreadSynchronizationTest.class);
 
 
-    private static ThreadSynchronizationSynchronized threadSyncThread;
+    private static ThreadSynchronizationSynchronized threadSync;
+    private static ThreadSynchronizationThreadPools threadSyncPools;
     private final int expectedCounter = ThreadConstant.NUMBER_OF_CYCLES * 2;
 
     @BeforeClass
     public static void init() {
-        threadSyncThread = new ThreadSynchronizationSynchronized();
+        threadSync = new ThreadSynchronizationSynchronized();
+        threadSyncPools = new ThreadSynchronizationThreadPools();
     }
 
     @Test
     public void testThreadSyncByMethodSynchronization() throws InterruptedException {
 
         //start threads
-        threadSyncThread.threadsRunByMethodSynchronization();
+        threadSync.threadsRunByMethodSynchronization();
         //if the counter is not synchronized value will be wrong (!=ThreadConstant.NUMBER_OF_CYCLES * 2)
-        LOGGER.info("Synchronized thread by method synchronization, counter = {}", threadSyncThread.getCounter());
-        Assert.assertEquals(expectedCounter, threadSyncThread.getCounter().intValue());
+        LOGGER.info("Synchronized thread by method synchronization, counter = {}", threadSync.getCounter());
+        Assert.assertEquals(expectedCounter, threadSync.getCounter().intValue());
 
     }
 
@@ -37,9 +39,19 @@ public class ThreadSynchronizationTest {
     public void testThreadSyncByCodeBlockLockSynchronization() throws InterruptedException {
 
         //start threads
-        threadSyncThread.threadsRunByCodeBlockLockSynchronization();
-        LOGGER.info("Synchronized thread by code block lock synchronization, counter = {}", threadSyncThread.getCounter());
-        Assert.assertEquals(expectedCounter, threadSyncThread.getCounter().intValue());
+        threadSync.threadsRunByCodeBlockLockSynchronization();
+        LOGGER.info("Synchronized thread by code block lock synchronization, counter = {}", threadSync.getCounter());
+        Assert.assertEquals(expectedCounter, threadSync.getCounter().intValue());
+
+    }
+
+    @Test
+    public void testThreadSynchronizationThreadPools() throws InterruptedException {
+
+        //start threads
+        threadSyncPools.processingThreadPools();
+        LOGGER.info("Thread pools = {} , counter = {}", ThreadConstant.NUMBER_OF_THREAD_POOLS, threadSyncPools.getCounter());
+        Assert.assertEquals(expectedCounter, threadSyncPools.getCounter().intValue());
 
     }
 
