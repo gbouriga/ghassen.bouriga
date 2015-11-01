@@ -7,16 +7,17 @@ public class ThreadSynchronizationSynchronized {
 
     private Long counter = 0L;
 
-    private Object locker1 = new Object();
-    private Object locker2 = new Object();
+    private Object locker = new Object();
 
 
-    public synchronized void incrementCounterSynchronized() {
+    public synchronized void incrementCounterByMethodSynchronization() {
         this.counter++;
     }
 
-    public void incrementCounterNonSynchronized() {
-        this.counter++;
+    public void incrementCounterByCodeBlockLockSynchronization() {
+        synchronized (locker) {
+            this.counter++;
+        }
     }
 
 
@@ -24,13 +25,13 @@ public class ThreadSynchronizationSynchronized {
         counter = 0L;
         Runnable task1 = () -> {
             for (int i = 0; i < ThreadConstant.NUMBER_OF_CYCLES; i++) {
-                incrementCounterSynchronized();
+                incrementCounterByMethodSynchronization();
             }
         };
 
         Runnable task2 = () -> {
             for (int i = 0; i < ThreadConstant.NUMBER_OF_CYCLES; i++) {
-                incrementCounterSynchronized();
+                incrementCounterByMethodSynchronization();
             }
         };
 
@@ -46,21 +47,17 @@ public class ThreadSynchronizationSynchronized {
     }
 
 
-    public void threadsRunByCodeBlockLock() throws InterruptedException {
+    public void threadsRunByCodeBlockLockSynchronization() throws InterruptedException {
         counter = 0L;
         Runnable task1 = () -> {
-            synchronized (locker1) {
-                for (int i = 0; i < ThreadConstant.NUMBER_OF_CYCLES; i++) {
-                    incrementCounterNonSynchronized();
-                }
+            for (int i = 0; i < ThreadConstant.NUMBER_OF_CYCLES; i++) {
+                incrementCounterByCodeBlockLockSynchronization();
             }
         };
 
         Runnable task2 = () -> {
-            synchronized (locker2) {
-                for (int i = 0; i < ThreadConstant.NUMBER_OF_CYCLES; i++) {
-                    incrementCounterNonSynchronized();
-                }
+            for (int i = 0; i < ThreadConstant.NUMBER_OF_CYCLES; i++) {
+                incrementCounterByCodeBlockLockSynchronization();
             }
         };
 

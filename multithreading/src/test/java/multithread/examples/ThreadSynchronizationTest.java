@@ -28,17 +28,17 @@ public class ThreadSynchronizationTest {
         //start threads
         threadSyncThread.threadsRunByMethodSynchronization();
         //if the counter is not synchronized value will be wrong (!=ThreadConstant.NUMBER_OF_CYCLES * 2)
-        LOGGER.info("Synchronized thread, counter = {}", threadSyncThread.getCounter());
+        LOGGER.info("Synchronized thread by method synchronization, counter = {}", threadSyncThread.getCounter());
         Assert.assertEquals(expectedCounter, threadSyncThread.getCounter().intValue());
 
     }
 
     @Test
-    public void testThreadSyncByCodeBlockLock() throws InterruptedException {
+    public void testThreadSyncByCodeBlockLockSynchronization() throws InterruptedException {
 
         //start threads
-        threadSyncThread.threadsRunByCodeBlockLock();
-        LOGGER.info("Synchronized thread, counter = {}", threadSyncThread.getCounter());
+        threadSyncThread.threadsRunByCodeBlockLockSynchronization();
+        LOGGER.info("Synchronized thread by code block lock synchronization, counter = {}", threadSyncThread.getCounter());
         Assert.assertEquals(expectedCounter, threadSyncThread.getCounter().intValue());
 
     }
