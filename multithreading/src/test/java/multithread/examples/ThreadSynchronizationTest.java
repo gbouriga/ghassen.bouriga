@@ -28,7 +28,7 @@ public class ThreadSynchronizationTest {
         //start threads
         threadSyncThread.threadsRunByMethodSynchronization();
         //if the counter is not synchronized value will be wrong (!=ThreadConstant.NUMBER_OF_CYCLES * 2)
-        LOGGER.info("Synchronized thread counter {}", threadSyncThread.getCounter());
+        LOGGER.info("Synchronized thread, counter = {}", threadSyncThread.getCounter());
         Assert.assertEquals(expectedCounter, threadSyncThread.getCounter().intValue());
 
     }
@@ -37,10 +37,9 @@ public class ThreadSynchronizationTest {
     public void testThreadSyncByCodeBlockLock() throws InterruptedException {
 
         //start threads
-        threadSyncThread.workersCaller();
-        LOGGER.info("Synchronized worker 1 size {}", threadSyncThread.getWorker1().size());
-        LOGGER.info("Synchronized worker 2 size {}", threadSyncThread.getWorker2().size());
-        Assert.assertEquals(expectedCounter, threadSyncThread.getWorker1().size());
+        threadSyncThread.threadsRunByCodeBlockLock();
+        LOGGER.info("Synchronized thread, counter = {}", threadSyncThread.getCounter());
+        Assert.assertEquals(expectedCounter, threadSyncThread.getCounter().intValue());
 
     }
 
