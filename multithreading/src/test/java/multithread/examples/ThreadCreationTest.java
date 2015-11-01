@@ -1,4 +1,4 @@
-package threads.examples;
+package multithread.examples;
 
 import org.junit.Test;
 
