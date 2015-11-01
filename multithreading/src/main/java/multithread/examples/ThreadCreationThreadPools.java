@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by gbouriga on 22/10/15.
  */
-public class ThreadSynchronizationThreadPools {
+public class ThreadCreationThreadPools {
 
     private Long counter = 0L;
 
@@ -18,16 +18,17 @@ public class ThreadSynchronizationThreadPools {
 
     public void processingThreadPools() throws InterruptedException {
 
-        //NUMBER_OF_THREAD_POOLS are executing at the same time
+
+        //creates a thread pool with NUMBER_OF_THREAD_POOLS threads executing tasks
         ExecutorService executorService = Executors.newFixedThreadPool(ThreadConstant.NUMBER_OF_THREAD_POOLS);
 
-        Runnable task1 = () -> incrementCounter();
-        Runnable task2 = () -> incrementCounter();
+        Runnable task1 = this::incrementCounter;
+        Runnable task2 = this::incrementCounter;
 
         for (int i = 0; i < ThreadConstant.NUMBER_OF_CYCLES; i++) {
-            //each thread increment counter by 1
-            executorService.submit(task1);
-            executorService.submit(task2);
+            //each task is executed by one of the threads in the ExecutorService
+            executorService.execute(task1);
+            executorService.execute(task2);
         }
         executorService.shutdown();
         executorService.awaitTermination(1, TimeUnit.DAYS);

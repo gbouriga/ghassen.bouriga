@@ -1,11 +1,29 @@
 package multithread.examples;
 
+import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by gbouriga on 22/10/15.
  */
 public class ThreadCreationTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ThreadCreationTest.class);
+
+
+    private static ThreadCreationThreadPools threadSyncPools;
+
+    private final int expectedCounter = ThreadConstant.NUMBER_OF_CYCLES * 2;
+
+
+
+    @BeforeClass
+    public static void init() {
+        threadSyncPools = new ThreadCreationThreadPools();
+    }
 
     @Test
     public void testThreadCreationThread() throws InterruptedException {
@@ -64,8 +82,15 @@ public class ThreadCreationTest {
         threadSynchronizationVolatile1.setShutdownThread(true);//shutting down the first thread hasn't any impact in thread 2
         threadSynchronizationVolatile2.join(500);
 
+    }
 
+    @Test
+    public void testThreadSynchronizationThreadPools() throws InterruptedException {
 
+        //start threads
+        threadSyncPools.processingThreadPools();
+        LOGGER.info("Thread pools = {} , counter = {}", ThreadConstant.NUMBER_OF_THREAD_POOLS, threadSyncPools.getCounter());
+        Assert.assertEquals(expectedCounter, threadSyncPools.getCounter().intValue());
 
     }
 }

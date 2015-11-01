@@ -15,13 +15,11 @@ public class ThreadSynchronizationTest {
 
 
     private static ThreadSynchronizationSynchronized threadSync;
-    private static ThreadSynchronizationThreadPools threadSyncPools;
     private final int expectedCounter = ThreadConstant.NUMBER_OF_CYCLES * 2;
 
     @BeforeClass
     public static void init() {
         threadSync = new ThreadSynchronizationSynchronized();
-        threadSyncPools = new ThreadSynchronizationThreadPools();
     }
 
     @Test
@@ -42,16 +40,6 @@ public class ThreadSynchronizationTest {
         threadSync.threadsRunByCodeBlockLockSynchronization();
         LOGGER.info("Synchronized thread by code block lock synchronization, counter = {}", threadSync.getCounter());
         Assert.assertEquals(expectedCounter, threadSync.getCounter().intValue());
-
-    }
-
-    @Test
-    public void testThreadSynchronizationThreadPools() throws InterruptedException {
-
-        //start threads
-        threadSyncPools.processingThreadPools();
-        LOGGER.info("Thread pools = {} , counter = {}", ThreadConstant.NUMBER_OF_THREAD_POOLS, threadSyncPools.getCounter());
-        Assert.assertEquals(expectedCounter, threadSyncPools.getCounter().intValue());
 
     }
 
