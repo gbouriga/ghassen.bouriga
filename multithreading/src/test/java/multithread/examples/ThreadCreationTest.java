@@ -16,9 +16,6 @@ public class ThreadCreationTest {
 
     private static ThreadCreationThreadPools threadSyncPools;
 
-    private final int expectedCounter = ThreadConstant.NUMBER_OF_CYCLES * 2;
-
-
 
     @BeforeClass
     public static void init() {
@@ -90,6 +87,7 @@ public class ThreadCreationTest {
         //start threads
         threadSyncPools.processingThreadPools();
         LOGGER.info("Thread pools = {} , counter = {}", ThreadConstant.NUMBER_OF_THREAD_POOLS, threadSyncPools.getCounter());
+        int expectedCounter = ThreadConstant.NUMBER_OF_CYCLES * 2;
         Assert.assertEquals(expectedCounter, threadSyncPools.getCounter().intValue());
 
     }

@@ -7,7 +7,7 @@ public class ThreadSynchronizationSynchronized {
 
     private Long counter = 0L;
 
-    private Object locker = new Object();
+    private final Object locker = new Object();
 
 
     public synchronized void incrementCounterByMethodSynchronization() {
