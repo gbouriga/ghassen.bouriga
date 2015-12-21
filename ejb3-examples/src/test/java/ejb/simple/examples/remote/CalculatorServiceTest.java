@@ -1,5 +1,6 @@
 package ejb.simple.examples.remote;
 
+import ejb.simple.examples.remote.inf.BasicCalculatorEjbRemote;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -31,7 +32,7 @@ public class CalculatorServiceTest {
     @Test
     public void testAdd() throws Exception {
         int remoteResult;
-        BasicCalculatorServiceRemote basicCalculatorServiceRemote = (BasicCalculatorServiceRemote) ctx.lookup("ejb.simple.examples.remote.BasicCalculatorServiceRemote");
+        BasicCalculatorEjbRemote basicCalculatorServiceRemote = (BasicCalculatorEjbRemote) ctx.lookup("ejb.simple.examples.remote.BasicCalculatorServiceRemote");
         remoteResult = basicCalculatorServiceRemote.add(1, 1);
         Assert.assertEquals(2, remoteResult);
         remoteResult = basicCalculatorServiceRemote.add(2, 1);
