@@ -1,5 +1,8 @@
 package multithread.examples;
 
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -7,11 +10,13 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by gbouriga on 22/10/15.
  */
+@Getter
+@Slf4j
 public class ThreadCreationThreadPools {
 
     private Long counter = 0L;
 
-    public synchronized void incrementCounter() {
+    private synchronized void incrementCounter() {
         this.counter++;
     }
 
@@ -32,9 +37,5 @@ public class ThreadCreationThreadPools {
         }
         executorService.shutdown();
         executorService.awaitTermination(1, TimeUnit.DAYS);
-    }
-
-    public Long getCounter() {
-        return counter;
     }
 }

@@ -1,24 +1,22 @@
 package multithread.examples;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Created by gbouriga on 22/10/15.
  */
+@Slf4j
 class ThreadCreationSimple {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ThreadCreationSimple.class);
 
     public void threadsRun() throws InterruptedException {
         Runnable task1 = () -> {
             for (int i = 0; i <= ThreadConstant.NUMBER_OF_CYCLES; i++) {
-                LOGGER.info("Thread 1 is running in loop {}", i);
+                log.info("Thread " + Thread.currentThread().getId() + " is running in loop {}", i);
             }
         };
         Runnable task2 = () -> {
             for (int i = 0; i <= ThreadConstant.NUMBER_OF_CYCLES; i++) {
-                LOGGER.info("Thread 2 is running in loop {}", i);
+                log.info("Thread " + Thread.currentThread().getId() + " is running in loop {}", i);
             }
         };
 

@@ -1,18 +1,15 @@
 package multithread.examples;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created by gbouriga on 22/10/15.
  */
+@Slf4j
 public class ThreadSynchronizationTest {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ThreadSynchronizationTest.class);
-
 
     private static ThreadSynchronizationSynchronized threadSync;
     private final int expectedCounter = ThreadConstant.NUMBER_OF_CYCLES * 2;
@@ -28,7 +25,7 @@ public class ThreadSynchronizationTest {
         //start threads
         threadSync.threadsRunByMethodSynchronization();
         //if the counter is not synchronized value will be wrong (!=ThreadConstant.NUMBER_OF_CYCLES * 2)
-        LOGGER.info("Synchronized thread by method synchronization, counter = {}", threadSync.getCounter());
+        log.info("Synchronized thread by method synchronization, counter = {}", threadSync.getCounter());
         Assert.assertEquals(expectedCounter, threadSync.getCounter().intValue());
 
     }
@@ -38,7 +35,7 @@ public class ThreadSynchronizationTest {
 
         //start threads
         threadSync.threadsRunByCodeBlockLockSynchronization();
-        LOGGER.info("Synchronized thread by code block lock synchronization, counter = {}", threadSync.getCounter());
+        log.info("Synchronized thread by code block lock synchronization, counter = {}", threadSync.getCounter());
         Assert.assertEquals(expectedCounter, threadSync.getCounter().intValue());
 
     }

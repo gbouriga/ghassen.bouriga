@@ -1,8 +1,13 @@
 package multithread.examples;
 
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Created by gbouriga on 22/10/15.
  */
+@Getter
+@Slf4j
 public class ThreadSynchronizationSynchronized {
 
     private Long counter = 0L;
@@ -10,11 +15,11 @@ public class ThreadSynchronizationSynchronized {
     private final Object locker = new Object();
 
 
-    public synchronized void incrementCounterByMethodSynchronization() {
+    private synchronized void incrementCounterByMethodSynchronization() {
         this.counter++;
     }
 
-    public void incrementCounterByCodeBlockLockSynchronization() {
+    private void incrementCounterByCodeBlockLockSynchronization() {
         synchronized (locker) {
             this.counter++;
         }
@@ -70,10 +75,6 @@ public class ThreadSynchronizationSynchronized {
         thread1.join();
         thread2.join();
 
-    }
-
-    public Long getCounter() {
-        return counter;
     }
 
 

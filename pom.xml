@@ -22,8 +22,8 @@
 
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
         <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.9</maven.compiler.source>
+        <maven.compiler.target>1.9</maven.compiler.target>
 
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
         <maven-clean-plugin.version>2.2</maven-clean-plugin.version>
@@ -121,7 +121,6 @@
             <scope>test</scope>
         </dependency>
 
-
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -129,5 +128,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.20</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

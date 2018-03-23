@@ -1,17 +1,15 @@
 package multithread.examples;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created by gbouriga on 22/10/15.
  */
+@Slf4j
 public class ThreadCreationTest {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ThreadCreationTest.class);
 
 
     private static ThreadCreationThreadPools threadSyncPools;
@@ -25,8 +23,8 @@ public class ThreadCreationTest {
     @Test
     public void testThreadCreationThread() throws InterruptedException {
         //parallels threads execution
-        ThreadCreationThread threadCreationThread1 = new ThreadCreationThread(1);
-        ThreadCreationThread threadCreationThread2 = new ThreadCreationThread(2);
+        ThreadCreationExtendThread threadCreationThread1 = new ThreadCreationExtendThread(1);
+        ThreadCreationExtendThread threadCreationThread2 = new ThreadCreationExtendThread(2);
 
         //start threads
         threadCreationThread1.start();
@@ -41,8 +39,8 @@ public class ThreadCreationTest {
     @Test
     public void testThreadCreationRunnable() throws InterruptedException {
         //parallels threads execution
-        ThreadCreationRunnable threadCreationRunnable1 = new ThreadCreationRunnable(1);
-        ThreadCreationRunnable threadCreationRunnable2 = new ThreadCreationRunnable(2);
+        ThreadCreationImplementRunnable threadCreationRunnable1 = new ThreadCreationImplementRunnable(1);
+        ThreadCreationImplementRunnable threadCreationRunnable2 = new ThreadCreationImplementRunnable(2);
 
         Thread thread1 = new Thread(threadCreationRunnable1);
         Thread thread2 = new Thread(threadCreationRunnable2);
@@ -86,7 +84,7 @@ public class ThreadCreationTest {
 
         //start threads
         threadSyncPools.processingThreadPools();
-        LOGGER.info("Thread pools = {} , counter = {}", ThreadConstant.NUMBER_OF_THREAD_POOLS, threadSyncPools.getCounter());
+        log.info("Thread pools = {} , counter = {}", ThreadConstant.NUMBER_OF_THREAD_POOLS, threadSyncPools.getCounter());
         int expectedCounter = ThreadConstant.NUMBER_OF_CYCLES * 2;
         Assert.assertEquals(expectedCounter, threadSyncPools.getCounter().intValue());
 
